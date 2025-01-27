@@ -1,4 +1,4 @@
-Avengers Turn-Based Battle Game
+SuperheroTurn-Based Battle Game
 
 Welcome to the Avengers Turn-Based Battle Game, a Python-based command-line game where you can play as your favorite Avengers and take on powerful villains in strategic turn-based combat.
 
