@@ -1,33 +1,37 @@
 import time
+from tkinter import messagebox
 
-def battle_sequence(player, villain):
-    while player.is_alive() and villain.is_alive():
-        print("\nYour turn:")
-        print("1. Attack")
-        print(f"2. Use Special Move ({player.special_move['name']})")
-        print("3. Heal (Potions left: {player.potions})")
-        print(player.status())
-        action = input("Choose an action: ")
+class SuperHeroBattle:
+    def __init__(self, player, villain, gui):
+        self.player = player
+        self.villain = villain
+        self.gui = gui
 
-        if action == "1":
-            player.attack(villain)
-        elif action == "2":
-            player.use_special(villain)
-        elif action == "3":
-            player.heal()
-        else:
-            print("Invalid choice. You lose your turn!")
+    def attack(self):
+        self.player.attack(self.villain)
+        self.check_battle_status()
 
-        if not villain.is_alive():
-            print(f"\n🎉 You defeated {villain.name}! Victory! 🎉")
-            break
+    def use_special(self):
+        self.player.use_special(self.villain)
+        self.check_battle_status()
 
+    def heal(self):
+        self.player.heal()
+        self.check_battle_status()
+
+    def check_battle_status(self):
+        if not self.villain.is_alive():
+            self.gui.update_label(f"\n🎉 You defeated {self.villain.name}! Victory! 🎉")
+            messagebox.showinfo("Victory", f"🎉 You defeated {self.villain.name}! 🎉")
+            return
         time.sleep(1)
-        print("\nVillain's turn...")
-        villain.attack(player)
+        self.villain_turn()
 
-        if not player.is_alive():
-            print(f"\n💀 You were defeated by {villain.name}. Game Over! 💀")
-            break
-
-        print(f"\n{player.status()} | {villain.status()}")
+    def villain_turn(self):
+        self.gui.update_label("Villain's turn...")
+        self.villain.attack(self.player)
+        if not self.player.is_alive():
+            self.gui.update_label(f"\n💀 You were defeated by {self.villain.name}. Game Over! 💀")
+            messagebox.showinfo("Game Over", f"💀 You were defeated by {self.villain.name}. 💀")
+        else:
+            self.gui.update_label(f"{self.player.status()} | {self.villain.status()}")
