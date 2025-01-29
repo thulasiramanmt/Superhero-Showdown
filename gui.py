@@ -78,6 +78,7 @@ class SuperHeroGameGUI:
         self.master.update()
         self.master.after(1000)
 
-root = tk.Tk()
-game_gui = SuperHeroGameGUI(root)
-root.mainloop()
+if __name__ == "__main__":
+    root = tk.Tk()
+    game_gui = SuperHeroGameGUI(root)
+    root.mainloop()
