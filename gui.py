@@ -78,6 +78,13 @@ class SuperHeroGameGUI:
         self.master.update()
         self.master.after(1000)
 
+    def end_game(self):
+        for button in self.hero_buttons:
+            button.config(state="disabled")
+        self.attack_button.config(state="disabled")
+        self.special_button.config(state="disabled")
+        self.heal_button.config(state="disabled")
+
 if __name__ == "__main__":
     root = tk.Tk()
     game_gui = SuperHeroGameGUI(root)
